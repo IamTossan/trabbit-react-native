@@ -4,5 +4,9 @@
     "english": "Changer la langue en anglais"
   },
   "getStarted": "Ouvrez le code de cet écran :",
-  "changeCode": "Modifiez n'importe quel texte, enregistrez le fichier et votre application sera automatiquement mise à jour."
+  "changeCode": "Modifiez n'importe quel texte, enregistrez le fichier et votre application sera automatiquement mise à jour.",
+  "mainScreen": {
+    "title": "Aujourd'hui",
+    "newTAskBtn": "Enregistrer"
+  }
 }
