@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { YStack, H4, Paragraph, ScrollView } from 'tamagui';
 import { TaskCard } from './TaskCard';
+import { TaskAdder } from './TaskAdder';
 
 export const MainScreen = () => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export const MainScreen = () => {
           <TaskCard key={task.id} task={task} />
         ))}
       </ScrollView>
+      <TaskAdder />
     </YStack>
   );
 };
