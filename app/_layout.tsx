@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { TamaguiProvider } from 'tamagui';
 
 import config from '../tamagui.config';
+import { database } from '../model';
 
 export default function Layout() {
   const [loaded] = useFonts({
