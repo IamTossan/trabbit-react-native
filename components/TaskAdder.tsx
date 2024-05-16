@@ -11,12 +11,22 @@ import {
   TooltipSimple,
   XStack,
 } from 'tamagui';
+import { TaskAdderForm } from './TaskAdder.form';
 
-export const TaskAdder = () => {
+type TaskAdderProps = {
+  onAddTask: (values: { name: string; quantity: number; unit_label: string }) => void;
+};
+
+export const TaskAdder = (props: TaskAdderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleSubmit = (value: { name: string; quantity: number; unit_label: string }) => {
+    props.onAddTask(value);
+    setIsOpen(false);
+  };
+
   return (
-    <Dialog modal onOpenChange={setIsOpen}>
+    <Dialog modal open={isOpen} onOpenChange={setIsOpen}>
       {isOpen ? null : (
         <Dialog.Trigger asChild>
           <Button>Show Dialog</Button>
@@ -57,33 +67,7 @@ export const TaskAdder = () => {
           gap="$4">
           <Dialog.Title>Edit profile</Dialog.Title>
 
-          <Dialog.Description>
-            Make changes to your profile here. Click save when you're done.
-          </Dialog.Description>
-
-          <Fieldset gap="$4" horizontal>
-            <Label width={160} justifyContent="flex-end" htmlFor="name">
-              Name
-            </Label>
-
-            <Input flex={1} id="name" defaultValue="Nate Wienert" />
-          </Fieldset>
-
-          <Fieldset gap="$4" horizontal>
-            <Label width={160} justifyContent="flex-end" htmlFor="username">
-              <TooltipSimple label="Pick your favorite" placement="bottom-start">
-                <Paragraph>Food</Paragraph>
-              </TooltipSimple>
-            </Label>
-          </Fieldset>
-
-          <XStack alignSelf="flex-end" gap="$4">
-            <Dialog.Close displayWhenAdapted asChild>
-              <Button theme="active" aria-label="Close">
-                Save changes
-              </Button>
-            </Dialog.Close>
-          </XStack>
+          <TaskAdderForm onSubmit={handleSubmit} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog>
