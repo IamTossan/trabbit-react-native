@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { YStack, H4, ScrollView } from 'tamagui';
+import { YStack, H4, ScrollView, XStack } from 'tamagui';
 import { TaskCard } from './TaskCard';
 import { TaskAdder } from './TaskAdder';
 
@@ -50,15 +50,14 @@ export const MainScreen = () => {
   return (
     <YStack flex={1} alignItems="center">
       <H4 color={'black'}>{t('mainScreen.title')}</H4>
-      <ScrollView
-        width="100%"
-        maxHeight={400}
-        marginVertical="$4"
-        contentContainerStyle={{ alignItems: 'center', paddingVertical: 10, flex: 1 }}>
-        {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
-        ))}
+      <ScrollView width="100%" flex={1} marginVertical="$4">
+        <XStack flexWrap="wrap" alignItems="center" justifyContent="center">
+          {tasks.map((task) => (
+            <TaskCard key={task.id} task={task} />
+          ))}
+        </XStack>
       </ScrollView>
+
       <TaskAdder onAddTask={addTask} />
     </YStack>
   );
