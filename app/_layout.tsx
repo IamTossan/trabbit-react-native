@@ -6,9 +6,7 @@ import { useEffect } from 'react';
 import { PortalProvider, TamaguiProvider } from 'tamagui';
 
 import config from '../tamagui.config';
-import { initDb } from '~/model';
-
-
+import { initDb, seedDb } from '~/model';
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -18,7 +16,8 @@ export default function Layout() {
 
   useEffect(() => {
     initDb();
-  }, [])
+    // seedDb();
+  }, []);
 
   useEffect(() => {
     if (loaded) {

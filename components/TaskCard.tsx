@@ -28,17 +28,6 @@ export const TaskCard = (props: TaskCardProps) => {
           {props.task.amount} {props.task.unit_label}
         </Paragraph>
       </XStack>
-      {/* <Card.Header padded>
-        <H2>Sony A7IV</H2>
-
-        <Paragraph theme="alt2">Now available</Paragraph>
-      </Card.Header>
-
-      <Card.Footer padded>
-        <XStack flex={1} />
-
-        <Button borderRadius="$10">Purchase</Button>
-      </Card.Footer> */}
 
       <Card.Background>
         <Image

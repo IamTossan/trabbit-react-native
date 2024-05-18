@@ -5,4 +5,4 @@ export type Task = {
   unit_label: string;
 };
 
-export type UnsavedTask = UnsavedTask;
+export type UnsavedTask = Omit<Task, 'id'>;
