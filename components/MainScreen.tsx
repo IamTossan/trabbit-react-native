@@ -1,50 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { YStack, H4, ScrollView, XStack } from 'tamagui';
+
 import { TaskCard } from './TaskCard';
 import { TaskAdder } from './TaskAdder';
+import { db } from '../model';
 
 export const MainScreen = () => {
   const { t } = useTranslation();
 
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      name: 'lire',
-      status: 'FINISHED',
-      started_at: null,
-      finished_at: null,
-      quantity: 100,
-      unit: 'NO_UNIT',
-      unit_label: 'p',
-      type: 'SHORT',
-      annotations: '',
-    },
-    {
-      id: 2,
-      name: 'code',
-      status: 'FINISHED',
-      started_at: null,
-      finished_at: null,
-      quantity: 2,
-      unit: 'MINUTES',
-      unit_label: 'h',
-      type: 'SHORT',
-      annotations: '',
-    },
-  ]);
+  const [tasks, setTasks] = useState<
+    { id: number; name: string; quantity: number; unit_label: string }[]
+  >([]);
 
-  const addTask = (newTask) => {
-    setTasks([
-      ...tasks,
-      {
-        ...newTask,
-        id: tasks.length + 1,
-        status: 'FINISHED',
-        type: 'SHORT',
-        annotations: '',
-      },
-    ]);
+  const getTasks = async () => {
+    const results = await db.getAllAsync('SELECT * FROM tasks;');
+    console.log(results);
+    setTasks(results);
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  const addTask = async (newTask) => {
+    await db.runAsync(
+      'INSERT INTO tasks (name, quantity, unit_label) VALUES (?, ?, ?)',
+      newTask.name,
+      newTask.quantity,
+      newTask.unit_label
+    );
+    await getTasks();
   };
 
   return (

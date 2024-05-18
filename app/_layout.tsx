@@ -6,13 +6,19 @@ import { useEffect } from 'react';
 import { PortalProvider, TamaguiProvider } from 'tamagui';
 
 import config from '../tamagui.config';
-import { database } from '../model';
+import { initDb } from '~/model';
+
+
 
 export default function Layout() {
   const [loaded] = useFonts({
     Inter: require('@tamagui/font-inter/otf/Inter-Medium.otf'),
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   });
+
+  useEffect(() => {
+    initDb();
+  }, [])
 
   useEffect(() => {
     if (loaded) {
