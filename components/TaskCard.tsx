@@ -1,30 +1,31 @@
 import type { CardProps } from 'tamagui';
 
-import { Button, Card, H2, Image, Paragraph, XStack } from 'tamagui';
+import { Card, Image, Paragraph, XStack } from 'tamagui';
+import { Task } from '~/model/types';
 
 type TaskCardProps = {
-  task: {
-    id: number;
-    name: string;
-    status: 'FINISHED';
-    started_at: null;
-    finished_at: null;
-    quantity: number;
-    unit: 'NO_UNIT';
-    unit_label: 'p';
-    type: 'SHORT';
-    annotations: '';
-  };
-  cardProps: CardProps;
+  task: Task;
+  // {
+  //   id: number;
+  //   name: string;
+  //   status: 'FINISHED';
+  //   started_at: null;
+  //   finished_at: null;
+  //   amount: number;
+  //   unit: 'NO_UNIT';
+  //   unit_label: 'p';
+  //   type: 'SHORT';
+  //   annotations: '';
+  // };
 };
 
 export const TaskCard = (props: TaskCardProps) => {
   return (
-    <Card elevate size="$4" width="90%" padding="$4" margin="$2" bordered {...props.cardProps}>
+    <Card elevate size="$4" width="90%" padding="$4" margin="$2" bordered>
       <XStack justifyContent="space-between">
         <Paragraph textTransform="capitalize">{props.task.name}</Paragraph>
         <Paragraph>
-          {props.task.quantity} {props.task.unit_label}
+          {props.task.amount} {props.task.unit_label}
         </Paragraph>
       </XStack>
       {/* <Card.Header padded>

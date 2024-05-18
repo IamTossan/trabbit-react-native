@@ -1,26 +1,16 @@
 import { useState } from 'react';
-import {
-  Adapt,
-  Button,
-  Dialog,
-  Fieldset,
-  Input,
-  Label,
-  Paragraph,
-  Sheet,
-  TooltipSimple,
-  XStack,
-} from 'tamagui';
+import { Adapt, Button, Dialog, Sheet } from 'tamagui';
 import { TaskAdderForm } from './TaskAdder.form';
+import { UnsavedTask } from '~/model/types';
 
 type TaskAdderProps = {
-  onAddTask: (values: { name: string; quantity: number; unit_label: string }) => void;
+  onAddTask: (values: UnsavedTask) => void;
 };
 
 export const TaskAdder = (props: TaskAdderProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubmit = (value: { name: string; quantity: number; unit_label: string }) => {
+  const handleSubmit = (value: UnsavedTask) => {
     props.onAddTask(value);
     setIsOpen(false);
   };

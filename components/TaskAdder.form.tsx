@@ -1,17 +1,18 @@
 import { Input, Button, YStack, Form, Spinner, XStack, SizableText } from 'tamagui';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { UnsavedTask } from '~/model/types';
 
 type TaskAdderFormProps = {
-  onSubmit: (values: { name: string; quantity: number; unit_label: string }) => void;
+  onSubmit: (values: UnsavedTask) => void;
 };
 
 export const TaskAdderForm = (props: TaskAdderFormProps) => {
   const formik = useFormik({
-    initialValues: { name: '', quantity: 0, unit_label: 'h' },
+    initialValues: { name: '', amount: 0, unit_label: 'h' },
     validationSchema: Yup.object({
       name: Yup.string().min(3).max(15, 'Must be 15 characters or less').required('Required'),
-      quantity: Yup.number()
+      amount: Yup.number()
         .positive()
         .integer()
         .min(0.5)
@@ -47,14 +48,14 @@ export const TaskAdderForm = (props: TaskAdderFormProps) => {
           <Input
             flex={1}
             keyboardType="numeric"
-            onChangeText={(v) => formik.setFieldValue('quantity', Number(v))}
-            onBlur={formik.handleBlur('quantity')}
-            value={formik.values.quantity}
+            onChangeText={(v) => formik.setFieldValue('amount', Number(v))}
+            onBlur={formik.handleBlur('amount')}
+            value={String(formik.values.amount)}
           />
           <Input disabled width="$4" value={formik.values.unit_label} />
         </XStack>
         <SizableText size="$2" marginLeft="$4" color="$red10">
-          {formik.touched.quantity && formik.errors.quantity ? formik.errors.quantity : ' '}
+          {formik.touched.amount && formik.errors.amount ? formik.errors.amount : ' '}
         </SizableText>
 
         <Form.Trigger asChild>

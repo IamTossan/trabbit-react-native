@@ -2,5 +2,7 @@ export type Task = {
   id: number;
   name: string;
   amount: number;
-  unit_label: 'h';
+  unit_label: string;
 };
+
+export type UnsavedTask = UnsavedTask;

@@ -5,16 +5,15 @@ import { YStack, H4, ScrollView, XStack } from 'tamagui';
 import { TaskCard } from './TaskCard';
 import { TaskAdder } from './TaskAdder';
 import { db } from '../model';
+import { Task, UnsavedTask } from '~/model/types';
 
 export const MainScreen = () => {
   const { t } = useTranslation();
 
-  const [tasks, setTasks] = useState<
-    { id: number; name: string; quantity: number; unit_label: string }[]
-  >([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const getTasks = async () => {
-    const results = await db.getAllAsync('SELECT * FROM tasks;');
+    const results = await db.getAllAsync<Task>('SELECT * FROM tasks;');
     console.log(results);
     setTasks(results);
   };
@@ -23,11 +22,11 @@ export const MainScreen = () => {
     getTasks();
   }, []);
 
-  const addTask = async (newTask) => {
+  const addTask = async (newTask: UnsavedTask) => {
     await db.runAsync(
-      'INSERT INTO tasks (name, quantity, unit_label) VALUES (?, ?, ?)',
+      'INSERT INTO tasks (name, amount, unit_label) VALUES (?, ?, ?)',
       newTask.name,
-      newTask.quantity,
+      newTask.amount,
       newTask.unit_label
     );
     await getTasks();
